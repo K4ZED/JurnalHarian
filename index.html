@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ruang Galau</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <div class="main">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="brand">ruang galau</div>
+      <nav class="nav">
+        <button class="nav-btn active" id="btn-write" onclick="showWrite()">tulis</button>
+        <button class="nav-btn" id="btn-entries" onclick="showEntries()">entri</button>
+      </nav>
+    </div>
+
+    <!-- Writing Section -->
+    <div class="writing-section" id="writing-section">
+      <div class="entry-date" id="current-date"></div>
+      <textarea
+        class="journal-textarea"
+        id="journal-textarea"
+        placeholder="apa yang ada di pikiranmu hari ini..."></textarea>
+      <div class="footer-bar">
+        <div class="footer-left">
+          <button class="save-btn" onclick="saveEntry()">simpan</button>
+          <span class="shortcut-hint">Ctrl + Enter</span>
+        </div>
+        <span class="word-count" id="word-count">0 kata</span>
+      </div>
+    </div>
+
+    <!-- Entries Section -->
+    <div class="entries-section hidden" id="entries-section">
+      <div class="section-title">entri-entri kamu</div>
+      <div class="entries-list" id="entries-list"></div>
+    </div>
+
+    <!-- View Section -->
+    <div class="view-section hidden" id="view-section">
+      <div class="view-header">
+        <button class="back-btn" onclick="showEntries()">← semua entri</button>
+        <div class="view-date-label" id="view-date-label"></div>
+      </div>
+      <div class="view-body">
+        <div class="view-content" id="view-content"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Music Player -->
+  <div class="music-player">
+    <div class="player-inner">
+      <button class="play-btn" id="play-btn" onclick="togglePlay()">
+        <svg id="play-icon" width="13" height="13" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </button>
+      <div class="playing-dot" id="playing-dot"></div>
+      <div class="track-info">
+        <div class="track-name">You're Gonna Live Forever in Me</div>
+        <div class="track-artist">John Mayer</div>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar" id="progress-bar" onclick="seekAudio(event)">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <div class="time-disp" id="time-disp">–:–– / –:––</div>
+      </div>
+      <button class="mute-btn" id="mute-btn" onclick="toggleMute()" title="mute/unmute">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+          <path id="vol-path" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Audio -->
+<audio id="audio" loop>
+  <source src="song/John Mayer - You're Gonna Live Forever in Me.mp3" type="audio/mpeg">
+</audio>
+
+<script src="app.js"></script>
+</body>
+</html>
