@@ -10,12 +10,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<canvas id="particles"></canvas>
+
 <div class="app">
   <div class="main">
 
     <!-- Header -->
     <div class="header">
-      <div class="brand">ruang galau</div>
+      <div class="brand">
+        <div class="brand-name">ruang galau</div>
+        <div class="brand-sub">tulis, rasakan, lepaskan</div>
+      </div>
       <nav class="nav">
         <button class="nav-btn active" id="btn-write" onclick="showWrite()">tulis</button>
         <button class="nav-btn" id="btn-entries" onclick="showEntries()">entri</button>
@@ -28,7 +34,7 @@
       <textarea
         class="journal-textarea"
         id="journal-textarea"
-        placeholder="apa yang ada di pikiranmu hari ini..."></textarea>
+        placeholder="ceritakan saja, tidak ada yang menghakimi di sini..."></textarea>
       <div class="footer-bar">
         <div class="footer-left">
           <button class="save-btn" onclick="saveEntry()">simpan</button>

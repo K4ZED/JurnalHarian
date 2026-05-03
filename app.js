@@ -35,6 +35,52 @@ function esc(s) {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+// ── Particles ────────────────────────────────────────────
+const canvas = document.getElementById('particles');
+const ctx    = canvas.getContext('2d');
+let pts = [];
+
+function resizeCanvas() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function makeParticle() {
+  return {
+    x:     Math.random() * canvas.width,
+    y:     Math.random() * canvas.height,
+    r:     Math.random() * 1.1 + 0.2,
+    vx:    (Math.random() - 0.5) * 0.12,
+    vy:    -(Math.random() * 0.18 + 0.04),
+    alpha: Math.random() * 0.18 + 0.03,
+  };
+}
+
+function initParticles() {
+  pts = Array.from({ length: 45 }, makeParticle);
+}
+
+function tickParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (const p of pts) {
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(139, 120, 168, ${p.alpha})`;
+    ctx.fill();
+    p.x += p.vx;
+    p.y += p.vy;
+    if (p.y < -4)               Object.assign(p, makeParticle(), { y: canvas.height + 4 });
+    if (p.x < -4)               p.x = canvas.width + 4;
+    if (p.x > canvas.width + 4) p.x = -4;
+  }
+  requestAnimationFrame(tickParticles);
+}
+
+resizeCanvas();
+initParticles();
+tickParticles();
+window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+
 // ── Init ─────────────────────────────────────────────────
 document.getElementById('current-date').textContent = fmtDate(new Date());
 
@@ -51,7 +97,7 @@ textarea.addEventListener('keydown', e => {
   if (e.ctrlKey && e.key === 'Enter') saveEntry();
 });
 
-audio.volume = 0.2;
+audio.volume = 0.18;
 
 // ── Navigation ───────────────────────────────────────────
 function showWrite() {
@@ -120,7 +166,11 @@ function deleteEntry(e, id) {
 function renderEntries() {
   const list = document.getElementById('entries-list');
   if (entries.length === 0) {
-    list.innerHTML = `<div class="empty-state"><p>belum ada entri. yuk mulai nulis.</p></div>`;
+    list.innerHTML = `
+      <div class="empty-state">
+        <p>belum ada entri.</p>
+        <small>mulai tuliskan isi hatimu.</small>
+      </div>`;
     return;
   }
   list.innerHTML = entries.map(en => `
